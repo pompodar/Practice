@@ -1,0 +1,82 @@
+NODE
+
+npm init
+
+npm install webpack --save-dev
+
+package.lock.json 
+It stores an exact, versioned dependency tree rather than using starred versioning like package.json itself (e.g. 1.0.*). This means you can guarantee the dependencies for other developers or prod releases, etc. It also has a mechanism to lock the tree but generally will regenerate if package.json changes.
+
+npm install jquery --save
+
+_____________________________________
+
+WEBPACK
+
+in package.json
+
+    "dev": "webpack --mode development",
+    "prod": "webpack --mode production",
+    "build": "webpack",
+    "watch": "webpack --watch"
+
+npm run dev/prod/watch
+_ _ _ _ _ _ _ 
+
+create webpack.config.js file in root
+
+const path = require("path");
+
+module.exports = {
+    mode: "production",
+    entry: "./src/index.js",
+    output: {
+        path: path.resolve(__dirname, "dist"),
+        filename: "main.js",
+    },
+    module: {
+        rules: [
+            {
+                test: /\.css$/,
+                use: [
+                    // [style-loader](/loaders/style-loader)
+                    { loader: "style-loader" },
+                    // [css-loader](/loaders/css-loader)
+                    {
+                        loader: "css-loader",
+                        options: {
+                            modules: true,
+                        },
+                    },
+                ],
+            },
+            {
+                test: /\.scss$/,
+                use: [
+                    {
+                        loader: "style-loader",
+                    },
+                    {
+                        loader: "css-loader",
+                        options: {
+                            sourceMap: true,
+                        },
+                    },
+                    {
+                        loader: "sass-loader",
+                        options: {
+                            sourceMap: true,
+                        },
+                    },
+                ],
+            },
+        ],
+    },
+};
+
+
+_ _ _ _ _ 
+
+npm install --save-dev style-loader css-loader 
+
+npm install --save-dev sass-loader node-sass webpack
