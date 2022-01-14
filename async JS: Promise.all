@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const posts = [ {title: "Post One", body: "That's post one."} ];
+        function getPost() {
+            setTimeout(() => {
+                let output = "";
+                posts.forEach((post, index) => {
+                    output += `<li>${post.title}</li>`;
+                });
+                document.body.innerHTML = output;
+            }, 1000)
+        }
+
+        function createPost (post) {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                posts.push(post);
+
+                const error = false;
+
+                if (!error) {
+                    resolve()
+                } else{
+                    reject("Error: Something went wrond!");
+                }
+                }, 2000);
+            })
+        }
+
+        const promise1 = fetch('https://jsonplaceholder.typicode.com/todos/1').then(res => 
+        res.json()
+        )
+
+        const promise2 = fetch('https://jsonplaceholder.typicode.com/todos/2').then(res =>
+        res.json()
+        )
+
+        Promise.all([promise1, promise2]).then(values => console.log(values[0])).then(getPost);
+    </script>
+</body>
+</html>
