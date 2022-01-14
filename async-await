@@ -50,6 +50,7 @@ async function init() {
     getPost();
 }
 
+init();
     </script>
 </body>
 
