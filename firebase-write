@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <button class="btn"></button>
+    <input type="text" name="" id="task">
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.2/firebase-app.js";
+        import { getDatabase, set, ref ,push, child, onValue} from
+        "https://www.gstatic.com/firebasejs/9.6.2/firebase-database.js";
+
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAds1amCeMpKIDwk43VibdQWbypXq8469s",
+            authDomain: "todo-list-project-c767a.firebaseapp.com",
+            projectId: "todo-list-project-c767a",
+            storageBucket: "todo-list-project-c767a.appspot.com",
+            messagingSenderId: "266564815133",
+            appId: "1:266564815133:web:9b00c16eca457e09c8f9f4",
+            databaseURL: "https://todo-list-project-c767a-default-rtdb.europe-west1.firebasedatabase.app"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+            const database = getDatabase(app);
+            const todoId = push(child(ref(database), 'users')).key;
+            let button = $('.btn');
+            let task = $('#task');
+            button.click(function() {
+            set(ref(database, 'todolist/' + userId), {
+            task: task,
+            });
+        });
+    </script>
+</body>
+</html>
