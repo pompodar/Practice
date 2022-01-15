@@ -41,8 +41,8 @@
         button.click(function() {
             set(ref(database, 'todolist/' + taskId), {
             task: task.val(),
+            });
         });
-    });
     </script>
 </body>
 </html>
