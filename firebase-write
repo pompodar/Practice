@@ -39,7 +39,7 @@
         let button = $('.btn');
         let task = $('#task');
         button.click(function() {
-            set(ref(database, 'todolist/' + taskId), {
+            set(ref(database, 'todolist/' + taskId), { to add categories 'todolist/category' !!!!
             task: task.val(),
             });
         });
