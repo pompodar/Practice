@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .wrapper {
+            min-width: 300px;
+            max-width: 600px;
+            border: 2px #000 solid;
+        }
+
+        .questionsWrapper {
+            text-align: center;
+            margin: 1rem;
+            border: 2px #000 solid;
+            min-width: 300px;
+            max-width: 600px;
+            min-height: 70px;
+        }
+
+        .question {
+            padding: 0 10%;
+            font-size: 25px;
+            font-weight: 900;
+        }
+
+        .nextQuestion {
+            border: 2px yellow solid;
+            display: block;
+            font-size: 15px;
+            padding: 10px;
+            margin: 0 auto 10px auto;
+            cursor: pointer;
+        }
+
+        .answersList {
+            display: none;
+            flex-direction: column;
+            padding: 0 25%;
+        }
+
+        #answer1 {
+            order: 1;
+        }
+
+        .answer {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="questionsWrapper">
+            <p class="question">тест</p>
+        </div>
+        <div class="answersWrapper">
+            <ul class="answersList">
+                <li class="answer" id="answer1">
+                    <p id="answerText1"></p>
+                </li>
+                <li class="answer" id="answer2">
+                    <p id="answerText2"></p>
+                </li>
+                <li class="answer" id="answer3">
+                    <p id="answerText3"></p>
+                </li>
+            </ul>
+        </div>
+        <button class="nextQuestion">розпочати тест
+        </button>
+    </div>
+    <script>
+        const questions = [
+            "Що таке JS?",
+            "Як правильно оголошувати фунцію?",
+            "Як правильно викликати функцію?",
+        ];
+
+        const answers = [
+            ["мова програмування", "бібліотека", "розмітка"],
+            ["function functionName () {}", "functionName()", "functionName => {}"],
+            ["functionName()", "functionName = () => {}", "functionName => {}"],
+        ];
+
+        let questionNumber = 0;
+        let btn = document.querySelector(".nextQuestion");
+        let question = document.querySelector(".question");
+        let answersList = document.querySelector(".answersList");
+        let answer1 = document.getElementById("answerText1");
+        let answer1Li = document.getElementById("answer1");
+        let answer2Li = document.getElementById("answer2");
+        let answer3Li = document.getElementById("answer3");
+        let answer2 = document.getElementById("answerText2");
+        let answer3 = document.getElementById("answerText3");
+        let result = 0;
+
+        function getResult(answer) {
+            if (answer == 1) {
+                result++;
+                answer1.style.background = "green";
+                answer2.style.background = "none";
+                answer3.style.background = "none";
+                btn.disabled = false;
+                answer1.onclick = null;
+                answer2.onclick = null;
+                answer3.onclick = null;
+            } else if (answer == 2) {
+                answer2.style.background = "red";
+                answer1.style.background = "none";
+                answer3.style.background = "none";
+                btn.disabled = false;
+                debugger;
+                answer1.onclick = null;
+                answer2.onclick = null;
+                answer3.onclick = null;
+            } else if (answer == 3) {
+                answer3.style.background = "red";
+                answer1.style.background = "none";
+                answer2.style.background = "none";
+                btn.disabled = false;
+                answer1.onclick = null;
+                answer2.onclick = null;
+                answer3.onclick = null;
+            }
+        }
+
+        // TODO - find out why addEventListener doesn't work
+
+        const update = () => {
+            if (questionNumber < questions.length) {
+                answersList.style.display = "flex";
+                btn.disabled = true;
+                btn.innerHTML = "наступне питання";
+                question.innerHTML = questions[questionNumber];
+
+                answer1Li.style.order = Math.floor(Math.random() * 3);
+                answer2Li.style.order = Math.floor(Math.random() * 3);
+                answer3Li.style.order = Math.floor(Math.random() * 3);
+
+                answer1.innerHTML = answers[questionNumber][0];
+                answer2.innerHTML = answers[questionNumber][1];
+                answer3.innerHTML = answers[questionNumber][2];
+                
+                questionNumber++;
+                answer1.style.background = "none";
+                answer2.style.background = "none";
+                answer3.style.background = "none";
+                answer1.onclick = () => {
+                    getResult(1);
+                };
+                answer2.onclick = () => {
+                    getResult(2);
+                };
+
+                answer3.onclick = () => {
+                    getResult(3);
+                };
+
+                if (questionNumber == questions.length) {
+                    btn.innerHTML = `Закінчити тест`;
+                }
+
+            } else {
+                question.innerHTML = "Тест закінчено";
+                const answersList = document.querySelector(".answersList");
+                answersList.style.display = "none";
+                btn.innerHTML = `Ваш результат: ${result}`;
+            }
+            console.trace();
+        };
+
+        console.time('myId');
+        for (let index = 0; index < 10000; index++) {
+            index + 6;            
+        }
+        console.timeEnd("myId");
+
+        console.table(questions);
+
+        btn.addEventListener("click", update);
+    </script>
+</body>
+
+</html>
