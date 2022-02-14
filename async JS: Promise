@@ -1,43 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <script>
-        const posts = [ {title: "Post One", body: "That's post one."} ];
-        function getPost() {
+        let myPromise = new Promise(function(myResolve, myReject) {
+        // "Producing Code" (May take some time)
+        setTimeout(() => {
+            alert(1)
+                myResolve(); // when successful
+                // myReject(); // when error
+        }, 2000);
+
+        });
+
+        // "Consuming Code" (Must wait for a fulfilled Promise)
+        myPromise.then(
+        function(value) { 
             setTimeout(() => {
-                let output = "";
-                posts.forEach((post, index) => {
-                    output += `<li>${post.title}</li>`;
-                });
-                document.body.innerHTML = output;
-            }, 1000)
-        }
-
-        function createPost (post) {
-            return new Promise((resolve, reject) => {
-                setTimeout(() => {
-                posts.push(post);
-
-                const error = true;
-
-                if (!error) {
-                    resolve()
-                } else{
-                    reject("Error: Something went wrond!");
-                }
-                }, 2000);
-            })
-        }
-
-        createPost({title: "Post Two", body: "That's post two."})
-        .then(getPost)
-        .catch(err => console.log(err));
+                        alert(2)
+            }, 1000);
+            },
+        function(error) { /* code if some error */ }
+        );
     </script>
 </body>
+
 </html>
